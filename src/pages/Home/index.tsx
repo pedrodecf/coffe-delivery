@@ -138,7 +138,7 @@ export function Home() {
       description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
       price: 9.9,
       quantity: 1,
-      img: '/public/irlandes.png',
+      img: '/irlandes.png',
     },
   ])
 
