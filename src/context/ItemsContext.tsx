@@ -51,7 +51,10 @@ interface ItemsContextProviderProps {
 }
 
 export function ItemsContextProvider({ children }: ItemsContextProviderProps) {
-  const [itemsOnCart, setItemsOnCart] = useState<ItemsOnCartProps[]>([])
+  const storedItem = localStorage.getItem('@coffe-delivery')
+  const initialItemsOnCart = storedItem ? JSON.parse(storedItem) : []
+  const [itemsOnCart, setItemsOnCart] =
+    useState<ItemsOnCartProps[]>(initialItemsOnCart)
   const [cep, setCep] = useState('')
   const [orderCep, setOrderCep] = useState('')
   const [rua, setRua] = useState('')
@@ -147,6 +150,10 @@ export function ItemsContextProvider({ children }: ItemsContextProviderProps) {
       setItemsOnCart(updatedItems)
     }
   }
+
+  useEffect(() => {
+    localStorage.setItem('@coffe-delivery', JSON.stringify(itemsOnCart))
+  }, [itemsOnCart])
 
   function handleOrderCompleted() {
     if (!cep || !rua || !numero || !complemento || !bairro || !cidade || !uf) {
